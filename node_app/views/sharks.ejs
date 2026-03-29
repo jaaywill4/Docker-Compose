@@ -1,1 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Shark Info - Jayden Williams</title>
+</head>
+<body>
+  <h1>Shark Info - Jayden Williams</h1>
+  <p>Welcome to Jayden Williams's Shark Info page.</p>
 
+  <h2>Add Your Shark</h2>
+  <form action="/sharks/addshark" method="post">
+    <div>
+      <label for="name">Shark Name:</label>
+      <input type="text" id="name" name="name" required>
+    </div>
+    <br>
+    <div>
+      <label for="character">Character:</label>
+      <input type="text" id="character" name="character" required>
+    </div>
+    <br>
+    <button type="submit">Add Shark</button>
+  </form>
+
+  <h2>Saved Sharks</h2>
+  <% if (sharks.length === 0) { %>
+    <p>No sharks added yet.</p>
+  <% } else { %>
+    <ul>
+      <% sharks.forEach(function(shark) { %>
+        <li><strong><%= shark.name %></strong> - <%= shark.character %></li>
+      <% }); %>
+    </ul>
+  <% } %>
+</body>
+</html>
