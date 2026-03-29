@@ -1,0 +1,30 @@
+services:
+  mongo:
+    build: ./docker/mongo
+    container_name: shark_mongo
+    restart: unless-stopped
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: sammy
+      MONGO_INITDB_ROOT_PASSWORD: sharkpass
+      MONGO_INITDB_DATABASE: sharkinfo
+    volumes:
+      - mongo_data:/data/db
+
+  nodeapp:
+    build: ./docker/node
+    container_name: shark_node
+    restart: unless-stopped
+    depends_on:
+      - mongo
+    environment:
+      MONGO_USERNAME: sammy
+      MONGO_PASSWORD: sharkpass
+      MONGO_HOSTNAME: mongo
+      MONGO_PORT: 27017
+      MONGO_DB: sharkinfo
+      PORT: 3000
+    ports:
+      - "3000:3000"
+
+volumes:
+  mongo_data:
